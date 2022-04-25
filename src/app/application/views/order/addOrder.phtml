@@ -1,0 +1,75 @@
+<?php
+include APP_PATH . "/views/header.phtml";
+?>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap 
+      align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Place Order</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+            </button>
+        </div>
+    </div>
+
+    <?php
+    $role = $this->request->get('bearer');
+    echo $this->tag->form(
+        [
+            "method" => "post",
+            "class" => "row g-3"
+        ]
+    ); ?>
+
+    <div class="col-md-6">
+        <label for="floatingInput">Customer Name
+            <?php echo $this->tag->textField(["customer_name", "id" => "floatingInput", "class" => "form-control", "required" => "true"]); ?>
+        </label>
+    </div>
+    <div class="col-md-6">
+        <label for="floatingPassword">Customer Address
+            <?php echo $this->tag->textarea(["customer_address", "id" => "floatingpassword", "class" => "form-control", "required" => "true"]); ?>
+        </label>
+    </div>
+    <div class="col-md-6">
+        <label for="floatingPassword">Zipcode
+            <?php echo $this->tag->textField(["zipcode", "id" => "floatingpassword", "class" => "form-control"]); ?>
+        </label>
+    </div>
+
+    <div class="col-md-6">
+        <label for="floatingPassword">Product
+            <select class="form-control" name="product">
+                <option selected disabled>Choose...</option>
+                <?php
+                $html = "";
+                foreach ($data as $k => $v) {
+                    $html .= '<option>' . $v->name . '</option>';
+                }
+                $html .= '</select>';
+                echo $html;
+
+                ?>
+        </label>
+    </div>
+
+    <div class="col-md-4">
+        <label for="floatingPassword">Quantity
+            <?php echo $this->tag->textField(["quantity", "id" => "floatingpassword", "class" => "form-control", "required" => "true"]); ?>
+        </label>
+    </div>
+
+    <div class="col-12">
+        <?php echo $this->tag->submitButton(["submit", "class" => "btn btn-primary", "name" => "submit"]); ?>
+    </div>
+
+    </form>
+    <div class="alert alert-<?php echo $success === true ? 'success' : 'danger'; ?>" <?php echo isset($success) === true ? '' : 'hidden'; ?>>
+        <?php echo $message; ?>
+    </div>
+</main>
+
+</body>
+
+</html>

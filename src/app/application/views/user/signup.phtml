@@ -1,0 +1,49 @@
+<?php
+include APP_PATH . "/views/header1.phtml";
+?>
+<div class="container">
+    <div class="row cant d-flex justify-content-center align-items-center">
+        <!-- <h1 class="text-center p-0 text-white display-4 border-bottom" style="margin-top:30px;">Welcome to My App</h1> -->
+        <h4 class="text-center p-0  display-4 border-bottom" style="margin-top:30px;">Please Signup</h4>
+        <div class="col-md-6" style="width: 40%;">
+            <div class="p-3 card">
+                <div class="d-flex justify-content-center align-items-center p-3 music border-bottom">
+                    <?php echo $this->tag->form(['method' => 'POST']); ?>
+
+                    <div>
+                        <label for="floatingInput">Name:
+                            <?php echo $this->tag->textField(["name", "id" => "floatingInput", "class" => "form-control", "required" => "true",]); ?>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="floatingInput">Email:
+                            <?php echo $this->tag->emailField(["email", "id" => "floatingInput", "class" => "form-control", "required" => "true",]); ?>
+                        </label>
+                    </div>
+                    <label for="floatingPassword">Password
+                        <?php echo $this->tag->passwordField(["password", "id" => "floatingpassword", "class" => "form-control", "required" => "true",]); ?>
+                    </label>
+
+                    <div>
+                        <?php echo $this->tag->submitButton([
+                            "Signup",
+                            "class" => "btn btn-danger",
+                            "name" => "submit"
+                        ]); ?>
+
+                        <a href="<?php echo URLROOT; ?>" class="btn btn-success">Back</a>
+                    </div>
+                    </form>
+                </div>
+
+
+                <?php if (isset($success)) { ?>
+                    <div class="alert alert-<?php echo $success === true ? 'success' : 'danger'; ?>" style="width: 100%;" <?php echo isset($success) === true ? '' : 'hidden'; ?>>
+                        <?php echo $message;
+                        ?>
+                    <?php } ?>
+                    </div>
+            </div>
+        </div>
+
+    </div>
