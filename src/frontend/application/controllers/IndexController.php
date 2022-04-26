@@ -11,7 +11,7 @@ class IndexController extends Controller
     /**
      * indexAction function
      *
-     * redirects to the login page
+     * Displays the list of products
      * @return void
      */
     public function indexAction()
