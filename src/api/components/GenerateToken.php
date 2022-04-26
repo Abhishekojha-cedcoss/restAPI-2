@@ -56,9 +56,23 @@ class GenerateToken implements MiddlewareInterface
     public function validate($token, $app)
     {
         $key = "example_key";
-        $decoded = JWT::decode($token, new Key($key, 'HS256'));
-        $GLOBALS["email"] = $decoded->email;
-        $GLOBALS["name"] = $decoded->name;
+        if ($token == null) { //Checks if the token is present or not
+            $app->response->setStatusCode(401, "Authorization failed!! Token not Found")
+                ->setJsonContent("Authorization failed!! Token not Found")
+                ->send();
+            die;
+        }
+
+        try { //Checks if the email and name are present in the token or not
+            $decoded = JWT::decode($token, new Key($key, 'HS256'));
+            $GLOBALS["email"] = $decoded->email;
+            $GLOBALS["name"] = $decoded->name;
+        } catch (\Exception $e) { //If the email or name are not given then an exception is thrown
+            $app->response->setStatusCode(400)
+                ->setJsonContent($e->getMessage())
+                ->send();
+            die;
+        }
     }
     public function call(Micro $app)
     {

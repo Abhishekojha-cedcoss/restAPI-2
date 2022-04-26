@@ -11,11 +11,10 @@ class IndexController extends Controller
     /**
      * indexAction function
      *
-     * redirects to the login page
+     * redirects to the login page or signup page
      * @return void
      */
     public function indexAction()
     {
-        $this->response->redirect("http://localhost:8080/app/user/login");
     }
 }
