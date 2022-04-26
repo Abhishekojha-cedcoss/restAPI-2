@@ -1,7 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Controller;
-use Phalcon\Http\Response;
+use MongoDB\BSON\ObjectID;
 
 /**
  * IndexController class
@@ -16,10 +16,8 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
-        $options = ["typeMap" => ['root' => 'array', 'document' => 'array']];
-        $result = $this->mongo->products->find([], $options)->toArray();
-
-        $this->view->data = $result;
+        $products = $this->mongo->products->find()->toArray();
+        $this->view->data = $products;
     }
 
     /**
@@ -29,11 +27,19 @@ class IndexController extends Controller
      */
     public function updateAction()
     {
-        $this->logger->info("Hello");
-        $data = json_decode($this->request->getPost("data"), true);
-        foreach ($data as $key => $value) {
-            $id = (array)$value['_id'];
-            $this->logger->info($id);
+        $response_data = json_decode($this->request->getPost("data"), true);
+        foreach ($response_data as $key => $value) {
+            $this->mongo->products->updateOne(
+                ["_id" => new ObjectID($value['_id']['$oid'])],
+                [
+                    '$set' => [
+                        "name" => $value['name'],
+                        "category" => $value['category'],
+                        "price" => $value["price"],
+                        "stock" => $value['stock']
+                    ]
+                ]
+            );
         }
     }
 }

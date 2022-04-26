@@ -17,6 +17,7 @@ class listener extends Injectable
         $products = $this->mongo->products->find()->toArray();
         $client = new Client();
         foreach ($webhookdata as $value) {
+            // print_r($value["url"]."<br>");
             $client->request('POST', $value["url"], [
                 'form-params' => [
                     'data' => json_encode($products),
