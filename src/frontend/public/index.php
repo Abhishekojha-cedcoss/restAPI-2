@@ -117,7 +117,7 @@ $container->set(
                 "password" => "password123"
             )
         );
-        return $mongo->store;
+        return $mongo->frontend;
     },
     true
 );

@@ -58,7 +58,7 @@
     <input class="form-control form-control-dark w-100" id="myInput" type="text" placeholder="Search" aria-label="Search">
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <a class="nav-link px-3 text-white btn btn-danger" href="<?php echo URLROOT ?>app/user/signout">Sign out</a>
+        <a class="nav-link px-3 text-white btn btn-danger" href="<?php echo URLROOT ?>/app/user/signout">Sign out</a>
       </div>
     </div>
   </header>
@@ -69,21 +69,21 @@
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="<?php echo URLROOT.'app/admin/listProducts'?>">
+              <a class="nav-link active" aria-current="page" href="<?php echo '/app/admin/listProducts'?>">
                 <span data-feather="home"></span>
                 Dashboard
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT.'app/admin/addProduct' ?>">
+              <a class="nav-link" href="<?php echo '/app/admin/addProduct' ?>">
                 <span data-feather="shopping-cart"></span>
                 Add Products
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT.'app/admin/listOrders' ?>">
+              <a class="nav-link" href="<?php echo '/app/admin/listOrders' ?>">
                 <span data-feather="shopping-cart"></span>
                 List Orders
               </a>
@@ -92,10 +92,3 @@
           </ul>
         </div>
       </nav>
-      <script>
-        function myFunction() {
-          var x = document.getElementById("Language").value;
-          var url = window.location.href + "?Locale=" + x;
-          location.replace(url);
-        }
-      </script>

@@ -33,6 +33,7 @@ class IndexController extends Controller
     public function updateAction()
     {
         $response_data = json_decode($this->request->getPost("data"), true);
+        $this->logger->info(json_encode($response_data));
         foreach ($response_data as $key => $value) {
             $this->mongo->products->updateOne(
                 ["_id" => new ObjectID($value['_id']['$oid'])],
@@ -46,5 +47,25 @@ class IndexController extends Controller
                 ]
             );
         }
+    }
+
+    /**
+     * updateAction function
+     *
+     * @return void
+     */
+    public function addAction()
+    {
+        $data = json_decode($this->request->getPost("data"), true);
+        $this->logger->info(json_encode($data));
+        $this->mongo->products->insertOne(
+            [
+                "_id" => new ObjectID($data['_id']['$oid']),
+                "name" => $data['name'],
+                "category" => $data['category'],
+                "price" => $data["price"],
+                "stock" => $data['stock']
+            ]
+        );
     }
 }

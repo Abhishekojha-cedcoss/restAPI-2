@@ -58,6 +58,19 @@ class AdminController extends Controller
             ];
             try {
                 $this->mongo->products->insertOne($data);
+
+                //........................................<Event Fired>...........................................//
+                $eventsManager = new EventsManager();
+                $component   = new App\Application\Components\Loader();
+
+                $component->setEventsManager($eventsManager);
+                $eventsManager->attach(
+                    'notifications',
+                    new Listener()
+                );
+                $component->add();
+                //........................................<Event Fired>...........................................//
+
                 $this->view->message = "Products added!!";
                 $this->view->success = true;
             } catch (Exception $e) {
@@ -89,7 +102,7 @@ class AdminController extends Controller
                 'notifications',
                 new Listener()
             );
-            $component->process();
+            $component->update();
             //........................................<Event Fired>...........................................//
         }
 

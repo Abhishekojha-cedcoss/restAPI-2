@@ -22,7 +22,8 @@ class UserController extends Controller
                 "name" => $formdata["name"],
                 "email" => $formdata["email"],
                 "password" => $formdata["password"],
-                "token" => $token
+                "token" => $token,
+                "role" => "user"
             ];
             try {
                 $this->mongo->users->insertOne($array);
@@ -51,9 +52,9 @@ class UserController extends Controller
             $data = (array)$data;
             if (count($data) > 0) {
                 if ($data["role"] == "admin") {
-                    $this->response->redirect("http://localhost:8080/app/admin/listProducts");
+                    $this->response->redirect(URLROOT."/app/admin/listProducts");
                 } elseif ($data["role"] == "user") {
-                    $this->response->redirect("http://localhost:8080/app/user/createWebHook");
+                    $this->response->redirect(URLROOT."/app/user/createWebHook");
                 }
             } else {
                 $this->view->success = false;
@@ -70,7 +71,7 @@ class UserController extends Controller
      */
     public function signoutAction()
     {
-        $this->response->redirect("http://localhost:8080/app/user/login");
+        $this->response->redirect(URLROOT."/app/user/login");
     }
 
     /**
@@ -83,7 +84,7 @@ class UserController extends Controller
     {
         if ($this->request->hasPost("submit")) {
             $data = $this->request->getPost();
-            $this->mongo->webhooks->insertOne(["name" => $data["name"], "url" => $data["url"], "key" => $data["key"]]);
+            $this->mongo->webhooks->insertOne(["name" => $data["name"], "url" => $data["url"], "key" => $data["key"], "event" => $data["event"]]);
         }
     }
 }

@@ -13,7 +13,7 @@ use GuzzleHttp\Client;
  */
 class listener extends Injectable
 {
-    public function product(
+    public function productUpdate(
         Event $event,
         loader $component
     ) {
@@ -22,12 +22,36 @@ class listener extends Injectable
         $products = $this->mongo->products->find()->toArray();
         $client = new Client();
         foreach ($webhookdata as $value) {
+            if ($value["event"] == "update") {
+                // print_r($value["event"]."<br>");
+                $client->request('POST', $value["url"], [
+                    'form_params' => [
+                        'data' => json_encode($products),
+                    ]
+                ]);
+            }
+        }
+    }
+    public function productAdd(
+        Event $event,
+        loader $component
+    ) {
+        $options = [
+            "limit" => 1,
+            "sort"  => ["_id" => -1]
+        ];
+        $product = $this->mongo->products->findOne([], $options);
+        $webhookdata = $this->mongo->webhooks->find()->toArray();
+        $client = new Client();
+        foreach ($webhookdata as $value) {
             // print_r($value["url"]."<br>");
-            $client->request('POST', $value["url"], [
-                'form-params' => [
-                    'data' => json_encode($products),
-                ]
-            ]);
+            if ($value["event"] == "add") {
+                $client->request('POST', $value["url"], [
+                    'form_params' => [
+                        'data' => json_encode($product),
+                    ]
+                ]);
+            }
         }
     }
 }

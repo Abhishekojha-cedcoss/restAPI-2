@@ -3,7 +3,6 @@ include APP_PATH . "/views/header1.phtml";
 ?>
 <div class="container">
     <div class="row cant d-flex justify-content-center align-items-center">
-        <!-- <h1 class="text-center p-0 text-white display-4 border-bottom" style="margin-top:30px;">Welcome to My App</h1> -->
         <h4 class="text-center p-0  display-4 border-bottom" style="margin-top:30px;">Create Web Hook</h4>
         <div class="col-md-6" style="width: 40%;">
             <div class="p-3 card">
@@ -23,10 +22,10 @@ include APP_PATH . "/views/header1.phtml";
 
                     <div>
                         <label for="inputtext" class="form-label">Events</label>
-                        <select class="form-control selectedoption" name="event[]" multiple size=2>
+                        <select class="form-control selectedoption" name="event">
                             <option selected hidden disabled>Choose Any One</option>
-                            <option>Product Create</option>
-                            <option>Product Update</option>
+                            <option value="add">Product Create</option>
+                            <option value="update">Product Update</option>
                         </select>
                     </div>
 

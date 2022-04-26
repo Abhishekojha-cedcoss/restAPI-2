@@ -20,7 +20,7 @@ $config = new Config([]);
 // Define some absolute path constants to aid in locating resources
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/application');
-define('URLROOT', 'http://localhost:8080/');
+define('URLROOT', "http://".$_SERVER["HTTP_HOST"]);
 
 // Register an autoloader
 $loader = new Loader();

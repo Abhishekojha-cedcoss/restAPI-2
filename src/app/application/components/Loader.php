@@ -19,8 +19,13 @@ class loader extends Injectable
         $this->eventsManager = $eventsManager;
     }
 
-    public function process()
+    public function update()
     {
-        return $this->eventsManager->fire('notifications:product', $this);
+        return $this->eventsManager->fire('notifications:productUpdate', $this);
+    }
+
+    public function add()
+    {
+        return $this->eventsManager->fire('notifications:productAdd', $this);
     }
 }
