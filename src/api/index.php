@@ -49,7 +49,6 @@ $app->before(
     new Api\Components\GenerateToken()
 );
 
-
 $app->get(
     '/api/products/list',
     [

@@ -2,6 +2,11 @@
 
 use Phalcon\Mvc\Controller;
 use MongoDB\BSON\ObjectID;
+use \Phalcon\Debug;
+
+$debug = new Debug();
+
+$debug->listen();
 
 /**
  * IndexController class

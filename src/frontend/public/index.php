@@ -34,11 +34,17 @@ $loader->registerDirs(
 
 $loader->register();
 
-$loader->registerNamespaces(
-    [
-        "App\Application\Components" => APP_PATH . "/components"
-    ]
-);
+$profiler = new \Fabfuel\Prophiler\Profiler();
+
+$profiler->addAggregator(new \Fabfuel\Prophiler\Aggregator\Database\QueryAggregator());
+$profiler->addAggregator(new \Fabfuel\Prophiler\Aggregator\Cache\CacheAggregator());
+
+$toolbar = new \Fabfuel\Prophiler\Toolbar($profiler);
+$toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
+
+echo $toolbar->render();
+
+
 
 $container = new FactoryDefault();
 
@@ -60,6 +66,7 @@ $container->set(
     }
 );
 $application = new Application($container);
+
 
 
 
