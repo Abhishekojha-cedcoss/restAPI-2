@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteBase /
+    RewriteRule   ^$ frontend/public/    [L]
+    RewriteRule   ((?s).*) frontend/public/$1 [L]
+</IfModule>

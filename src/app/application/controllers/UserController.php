@@ -50,12 +50,40 @@ class UserController extends Controller
             $data = $this->mongo->users->findOne(["email" => $email, "password" => $password]);
             $data = (array)$data;
             if (count($data) > 0) {
-                $this->response->redirect("http://localhost:8080/admin/product/listProduct");
+                if ($data["role"] == "admin") {
+                    $this->response->redirect("http://localhost:8080/app/admin/listProducts");
+                } elseif ($data["role"] == "user") {
+                    $this->response->redirect("http://localhost:8080/app/user/createWebHook");
+                }
             } else {
                 $this->view->success = false;
                 $this->view->message = "Wrong Credentials!!";
                 $this->logger->error("Wrong Credentials!!");
             }
+        }
+    }
+
+    /**
+     * Signout function
+     *
+     * @return void
+     */
+    public function signoutAction()
+    {
+        $this->response->redirect("http://localhost:8080/app/user/login");
+    }
+
+    /**
+     * createWebHookAction function
+     *
+     * Form to create webHook for user
+     * @return void
+     */
+    public function createWebHookAction()
+    {
+        if ($this->request->hasPost("submit")) {
+            $data = $this->request->getPost();
+            $this->mongo->webhooks->insertOne(["name" => $data["name"], "url" => $data["url"], "key" => $data["key"]]);
         }
     }
 }

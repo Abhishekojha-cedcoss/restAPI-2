@@ -1,0 +1,65 @@
+<?php
+include APP_PATH . "/views/header.phtml";
+?>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 vh-100">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap 
+      align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Update Product</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+            </button>
+        </div>
+    </div>
+
+    <?php
+    echo $this->tag->form(
+        [
+            "method" => "post",
+            "class" => "row g-3"
+        ]
+    ); ?>
+
+    <div class="col-md-6">
+        <label for="floatingInput">Name
+            <?php echo $this->tag->textField(["name", "id" => "floatingInput", "class" => "form-control", "required" => "true", "value" => $data["name"]]);  ?>
+        </label>
+    </div>
+
+    <div class="col-md-6">
+        <label for="floatingInput">Category Name:
+            <?php echo $this->tag->textField([
+                "category",
+                "id" => "floatingInput",
+                "class" => "form-control",
+                "required" => "true",
+                "value" => $data["category"]
+            ]); ?>
+        </label>
+    </div>
+
+    <div class="col-md-6">
+        <label for="floatingPassword">Price
+            <?php echo $this->tag->textField(["price", "id" => "floatingpassword", "class" => "form-control", "value" => $data["price"]]); ?>
+        </label>
+    </div>
+    <div class="col-md-4">
+        <label for="floatingPassword">Stock
+            <?php echo $this->tag->textField(["stock", "id" => "floatingpassword", "class" => "form-control", "value" => $data["stock"]]); ?>
+        </label>
+    </div>
+
+
+
+    <div class="col-12">
+        <?php echo $this->tag->submitButton(["submit", "class" => "btn btn-primary", "name" => "submit"]); ?>
+    </div>
+
+    </form>
+
+</main>
+
+</body>
+
+</html>
