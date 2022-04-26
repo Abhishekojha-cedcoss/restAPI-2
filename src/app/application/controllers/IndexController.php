@@ -16,5 +16,6 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
+        $this->response->redirect("http://localhost:8080/app/user/login");
     }
 }

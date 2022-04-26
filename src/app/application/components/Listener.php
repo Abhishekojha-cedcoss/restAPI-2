@@ -6,6 +6,11 @@ use Phalcon\Events\Event;
 use Phalcon\Di\Injectable;
 use GuzzleHttp\Client;
 
+/**
+ * listener class
+ *
+ * Handle the update events and returns the response to the given url
+ */
 class listener extends Injectable
 {
     public function product(
