@@ -64,6 +64,7 @@ $container->set(
             'notifications',
             new Listener()
         );
+        
         return $component;
     }
 );

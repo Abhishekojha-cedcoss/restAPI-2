@@ -18,9 +18,6 @@ final class Helper extends Injectable
      * generateToken function
      *
      * Generates new token for the user who signups for the application
-     * @param string $name
-     * @param string $email
-     * @return string
      */
     public function generateToken(string $name, string $email): string
     {

@@ -18,7 +18,7 @@ final class EscapeClass
      * @param [string] $val
      * @return string
      */
-    public function sanitize(string $val)
+    public function sanitize(string $val): string
     {
         $escaper = new Escaper();
         return $escaper->escapeHtml($val);

@@ -33,8 +33,8 @@ final class Product extends Injectable
     public function get($per_page = 2, $page = 1): void
     {
         $options = [
-            "limit" => (int)$per_page,
-            "skip"  => (int)(($page - 1) * $per_page)
+            "limit" => (int) $per_page,
+            "skip"  => (int) (($page - 1) * $per_page)
         ];
         $array = [];
         $products =  $this->mongo->products->find([], $options);

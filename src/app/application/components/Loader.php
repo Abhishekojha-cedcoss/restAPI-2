@@ -9,6 +9,11 @@ use Phalcon\Events\ManagerInterface;
 
 final class Loader extends Injectable
 {
+    /**
+     * eventsManager variable
+     *
+     * @var object
+     */
     protected $eventsManager;
 
     public function getEventsManager()
@@ -20,12 +25,12 @@ final class Loader extends Injectable
         $this->eventsManager = $eventsManager;
     }
 
-    public function update()
+    public function update(): object
     {
         return $this->eventsManager->fire('notifications:productUpdate', $this);
     }
 
-    public function add()
+    public function add(): object
     {
         return $this->eventsManager->fire('notifications:productAdd', $this);
     }
