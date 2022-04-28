@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 use MongoDB\BSON\ObjectID;
 use Phalcon\Mvc\Controller;
-use \Phalcon\Debug;
-
-$debug = new Debug();
-
-$debug->listen();
 
 /**
  * IndexController class
  */
-class IndexController extends Controller
+final class IndexController extends Controller
 {
     /**
      * indexAction function
@@ -29,7 +24,7 @@ class IndexController extends Controller
     /**
      * updateAction function
      *
-     * @return void
+     * Gets response data from the api hit and adds the data to the frontend database
      */
     public function updateAction(): void
     {
@@ -51,9 +46,9 @@ class IndexController extends Controller
     }
 
     /**
-     * updateAction function
+     * addAction function
      *
-     * @return void
+     * When admin adds new data response comes over here and the data is added to the databse
      */
     public function addAction(): void
     {

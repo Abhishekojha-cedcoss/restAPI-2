@@ -13,8 +13,6 @@ final class IndexController extends Controller
      * indexAction function
      *
      * redirects to the login page or signup page
-     *
-     * @return void
      */
     public function indexAction(): void
     {

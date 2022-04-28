@@ -30,15 +30,7 @@ final class Order extends Injectable
             $this->response->send();
             die;
         }
-        $order = [
-            'customer name' => $GLOBALS['name'],
-            'customer email' => $GLOBALS['email'],
-            'product_id' => $getproduct['product_id'],
-            'quantity' => $getproduct['quantity'],
-            'status' => 'paid',
-            'date' => date('d/m/Y')
-        ];
-        $results = $this->mongo->orders->insertOne($order);
+        $results = $this->mongo->orders->insertOne($this->createOrderArray($getproduct));
 
         $this->response->setStatusCode(200, 'Found');
         $this->response->setJsonContent([
@@ -69,5 +61,22 @@ final class Order extends Injectable
             'status new value' => $getproduct['status']
         ]);
         $this->response->send();
+    }
+
+    /**
+     * createOrderArray function
+     * Creates the order array to place the order
+     */
+    public function createOrderArray($data): array
+    {
+        $order = [
+            'customer name' => $GLOBALS['name'],
+            'customer email' => $GLOBALS['email'],
+            'product_id' => $data['product_id'],
+            'quantity' => $data['quantity'],
+            'status' => 'paid',
+            'date' => date('d/m/Y')
+        ];
+        return $order;
     }
 }

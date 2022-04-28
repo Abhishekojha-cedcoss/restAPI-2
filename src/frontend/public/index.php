@@ -11,13 +11,8 @@ use Phalcon\Loader;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
 use Phalcon\Url;
-use Phalcon\Config;
-use Phalcon\Session\Manager;
-use Phalcon\Session\Adapter\Stream;
 use Phalcon\Logger\AdapterFactory;
 use Phalcon\Logger\LoggerFactory;
-
-$config = new Config([]);
 
 // Define some absolute path constants to aid in locating resources
 define('BASE_PATH', dirname(__DIR__));
@@ -90,24 +85,6 @@ $container->set(
 //.......................................<Logger>........................................//
 
 
-$container->set(
-    'session',
-    function () {
-        $session = new Manager();
-        $files = new Stream(
-            [
-                'savePath' => '/tmp',
-            ]
-        );
-
-        $session
-            ->setAdapter($files)
-            ->start();
-
-        return $session;
-    },
-    true
-);
 
 $container->set(
     'mongo',
@@ -131,6 +108,6 @@ try {
     );
 
     $response->send();
-} catch (\Exception $e) {
-    echo 'Exception: ', $e->getMessage();
+} catch (\Exception $err) {
+    echo 'Exception: ', $err->getMessage();
 }

@@ -1,9 +1,9 @@
 <?php
 
-use App\Application\Components\Listener;
+declare(strict_types=1);
+
 use MongoDB\BSON\ObjectID;
 use Phalcon\Mvc\Controller;
-use Phalcon\Events\Manager as EventsManager;
 
 final class AdminController extends Controller
 {
@@ -52,19 +52,7 @@ final class AdminController extends Controller
             ];
             try {
                 $this->mongo->products->insertOne($data);
-
-                //........................................<Event Fired>...........................................//
-                $eventsManager = new EventsManager();
-                $component   = new App\Application\Components\Loader();
-
-                $component->setEventsManager($eventsManager);
-                $eventsManager->attach(
-                    'notifications',
-                    new Listener()
-                );
-                $component->add();
-                //........................................<Event Fired>...........................................//
-
+                $this->event->add();//Fire an event
                 $this->view->message = 'Products added!!';
                 $this->view->success = true;
             } catch (Exception $err) {
@@ -75,9 +63,9 @@ final class AdminController extends Controller
         }
     }
     /**
-     * Undocumented function
+     * updateProductAction function
      *
-     * @return void
+     * Update the product details and fire an event
      */
     public function updateProductAction(): void
     {
@@ -92,16 +80,7 @@ final class AdminController extends Controller
                     'stock' => $formdata['stock'],
                 ]
             ]);
-            //........................................<Event Fired>...........................................//
-            $eventsManager = new EventsManager();
-            $component = new App\Application\Components\Loader();
-            $component->setEventsManager($eventsManager);
-            $eventsManager->attach(
-                'notifications',
-                new Listener()
-            );
-            $component->update();
-            //........................................<Event Fired>...........................................//
+            $this->event->update();//Fire an event
         }
         $this->view->data = (array) $this->mongo->products->findOne(['_id' => new ObjectID($id)]);
     }
