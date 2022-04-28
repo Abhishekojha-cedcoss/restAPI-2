@@ -10,7 +10,7 @@ use Phalcon\Di\Injectable;
  * Product Handler class
  * to handle all the product requests
  */
-class Product extends Injectable
+final class Product extends Injectable
 {
     /**
      * list function

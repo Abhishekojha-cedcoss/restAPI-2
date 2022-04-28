@@ -1,7 +1,9 @@
 <?php
 
-use Phalcon\Mvc\Controller;
+declare(strict_types=1);
+
 use MongoDB\BSON\ObjectID;
+use Phalcon\Mvc\Controller;
 use \Phalcon\Debug;
 
 $debug = new Debug();
@@ -17,9 +19,8 @@ class IndexController extends Controller
      * indexAction function
      *
      * Displays the list of products
-     * @return void
      */
-    public function indexAction()
+    public function indexAction(): void
     {
         $products = $this->mongo->products->find()->toArray();
         $this->view->data = $products;
@@ -30,11 +31,11 @@ class IndexController extends Controller
      *
      * @return void
      */
-    public function updateAction()
+    public function updateAction(): void
     {
         $response_data = json_decode($this->request->getPost("data"), true);
         $this->logger->info(json_encode($response_data));
-        foreach ($response_data as $key => $value) {
+        foreach ($response_data as $value) {
             $this->mongo->products->updateOne(
                 ["_id" => new ObjectID($value['_id']['$oid'])],
                 [
@@ -54,7 +55,7 @@ class IndexController extends Controller
      *
      * @return void
      */
-    public function addAction()
+    public function addAction(): void
     {
         $data = json_decode($this->request->getPost("data"), true);
         $this->logger->info(json_encode($data));

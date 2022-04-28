@@ -11,7 +11,7 @@ use MongoDB\BSON\ObjectID;
  * Product Handler class
  * to handle all the product requests
  */
-class Order extends Injectable
+final class Order extends Injectable
 {
     /**
      * place function
@@ -20,9 +20,16 @@ class Order extends Injectable
     public function place(): void
     {
         $getproduct = json_decode(json_encode($this->request->getJsonRawBody()), true);
-        $id = $getproduct["product_id"];
-        print_r($id);
-        die;
+        try {
+            $this->mongo->products->findOne([
+                "_id" => new ObjectID($getproduct['product_id'])
+            ]);
+        } catch (\Exception $e) {
+            $this->response->setStatusCode(404, 'Please Enter Valid Product ID');
+            $this->response->setJsonContent("Please Enter Valid Product ID!!");
+            $this->response->send();
+            die;
+        }
         $order = [
             'customer name' => $GLOBALS['name'],
             'customer email' => $GLOBALS['email'],
@@ -50,7 +57,11 @@ class Order extends Injectable
         $getproduct = json_decode(json_encode($this->request->getJsonRawBody()), true);
         $this->mongo->orders->updateOne(
             ['_id' => new ObjectID($getproduct['status'])],
-            ['$set' => ['status' => $getproduct['status']]]
+            [
+                '$set' => [
+                    'status' => $getproduct['status']
+                ]
+            ]
         );
         $this->response->setStatusCode(200, 'Order Updated');
         $this->response->setJsonContent([

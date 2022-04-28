@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $_SERVER["REQUEST_URI"] = str_replace("/frontend/", "/", $_SERVER["REQUEST_URI"]);
 
 require "./vendor/autoload.php";

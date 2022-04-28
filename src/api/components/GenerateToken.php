@@ -17,11 +17,12 @@ use MongoDB\BSON\ObjectID;
  * GenerateToken class
  * Generate the new token for differen user
  */
-class GenerateToken implements MiddlewareInterface
+final class GenerateToken implements MiddlewareInterface
 {
     public function authorizeApiToken($app): void
     {
         $now = new DateTimeImmutable();
+        $key = 'example_key';
 
         $payload = array(
             'name' => 'abhishek',
@@ -68,8 +69,8 @@ class GenerateToken implements MiddlewareInterface
     }
     public function call(Micro $app): void
     {
-        $check = explode('/', $app->request->get()['_url'])[1];
-        if ($check === '/api/generateApiToken') {
+        $check = explode('/', $app->request->get()['_url']);
+        if ($check[1] === 'generatetoken') {
             $this->authorizeApiToken($app);
         } else {
             $token = $app->request->get('token');
