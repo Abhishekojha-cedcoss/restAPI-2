@@ -5,7 +5,7 @@ namespace App\Application\Components;
 use Phalcon\Di\Injectable;
 use Phalcon\Events\ManagerInterface;
 
-class loader extends Injectable
+class Loader extends Injectable
 {
     protected $eventsManager;
 
@@ -13,8 +13,7 @@ class loader extends Injectable
     {
         return $this->eventsManager;
     }
-    
-    public function setEventsManager(ManagerInterface $eventsManager)
+    public function setEventsManager(ManagerInterface $eventsManager): void
     {
         $this->eventsManager = $eventsManager;
     }

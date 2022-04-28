@@ -1,0 +1,46 @@
+[{
+  "_id": {
+    "$oid": "62664ceffb56dc59060eb312"
+  },
+  "name": "Abhishek Ojha",
+  "email": "aojha8120@gmail.com",
+  "password": "1234",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiQWJoaXNoZWsgT2poYSIsImVtYWlsIjoiYW9qaGE4MTIwQGdtYWlsLmNvbSIsImlzcyI6IidodHRwczovL3BoYWxjb24uaW8nIiwiZXhwICI6MTY1MDk1NzkzNSwiYXVkIjoiaHR0cHM6Ly90YXJnZXQucGhhbGNvbi5pbyIsImlhdCI6MTY1MDg3MTUzNSwibmJmIjoxNjUwODcxNDc1LCJwYXNzd29yZCI6IlFjTXBaJmImbW8zVFBzUGs2NjhKNlFIOEpBJCZVJm0yIn0.aaxm73RYhlOzVfuCQGuCTjC0Epvovxf3pgOJTr6ZfBw",
+  "role": "admin"
+},{
+  "_id": {
+    "$oid": "62665afefb56dc59060eb313"
+  },
+  "name": "Anshuman",
+  "email": "arai@gmail.com",
+  "password": "1234",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiQW5zaHVtYW4iLCJlbWFpbCI6ImFyYWlAZ21haWwuY29tIiwiaXNzIjoiJ2h0dHBzOi8vcGhhbGNvbi5pbyciLCJleHAgIjoxNjUwOTYxNTM0LCJhdWQiOiJodHRwczovL3RhcmdldC5waGFsY29uLmlvIiwiaWF0IjoxNjUwODc1MTM0LCJuYmYiOjE2NTA4NzUwNzQsInBhc3N3b3JkIjoiUWNNcFomYiZtbzNUUHNQazY2OEo2UUg4SkEkJlUmbTIifQ.Z31cPIyXF7YdUczn_saNMFlbbV0KXZwHUoa95NtMLAc",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "6267ec87803cb2d64600abe3"
+  },
+  "name": "saurabh",
+  "email": "saurabh@gmail.com",
+  "password": "123",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoic2F1cmFiaCIsImVtYWlsIjoic2F1cmFiaEBnbWFpbC5jb20iLCJpc3MiOiInaHR0cHM6Ly9waGFsY29uLmlvJyIsImV4cCAiOjE2NTEwNjQzMjcsImF1ZCI6Imh0dHBzOi8vdGFyZ2V0LnBoYWxjb24uaW8iLCJpYXQiOjE2NTA5Nzc5MjcsIm5iZiI6MTY1MDk3Nzg2NywicGFzc3dvcmQiOiJRY01wWiZiJm1vM1RQc1BrNjY4SjZRSDhKQSQmVSZtMiJ9.9G4QQBYkGo04aJpYk8hug8kNnucon7MFP68gpBnFFj4",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "6267ef85457fc960d00c0294"
+  },
+  "name": "Anshuman Rai",
+  "email": "abcd@xyz.com",
+  "password": "1234",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiQW5zaHVtYW4gUmFpIiwiZW1haWwiOiJhYmNkQHh5ei5jb20iLCJpc3MiOiInaHR0cHM6Ly9waGFsY29uLmlvJyIsImV4cCAiOjE2NTEwNjUwOTMsImF1ZCI6Imh0dHBzOi8vdGFyZ2V0LnBoYWxjb24uaW8iLCJpYXQiOjE2NTA5Nzg2OTMsIm5iZiI6MTY1MDk3ODYzMywicGFzc3dvcmQiOiJRY01wWiZiJm1vM1RQc1BrNjY4SjZRSDhKQSQmVSZtMiJ9.X6HjKFGQbx2X3HnUAPTn0Fs26BBunnqv830jbfpcwpE",
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "6268c114c25e67d41d07d8c2"
+  },
+  "name": "Sarvesh",
+  "email": "sar@gmail.com",
+  "password": "1234",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiU2FydmVzaCIsImVtYWlsIjoic2FyQGdtYWlsLmNvbSIsImlzcyI6IidodHRwczovL3BoYWxjb24uaW8nIiwiZXhwICI6MTY1MTExODc0MCwiYXVkIjoiaHR0cHM6Ly90YXJnZXQucGhhbGNvbi5pbyIsImlhdCI6MTY1MTAzMjM0MCwibmJmIjoxNjUxMDMyMjgwLCJwYXNzd29yZCI6IlFjTXBaJmImbW8zVFBzUGs2NjhKNlFIOEpBJCZVJm0yIn0._v7N0OaOOofCo3JWUOySyV8kt0d3DgLNLaL0PdAKP8Y",
+  "role": "user"
+}]

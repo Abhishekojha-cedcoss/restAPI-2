@@ -2,7 +2,6 @@
 
 namespace App\Application\Components;
 
-use Phalcon\Events\Event;
 use Phalcon\Di\Injectable;
 use GuzzleHttp\Client;
 
@@ -11,20 +10,18 @@ use GuzzleHttp\Client;
  *
  * Handle the update events and returns the response to the given url
  */
-class listener extends Injectable
+class Listener extends Injectable
 {
-    public function productUpdate(
-        Event $event,
-        loader $component
-    ) {
-        $this->logger->info("Event was fired!!");
+    public function productUpdate(): void
+    {
+        $this->logger->info('Event was fired!!');
         $webhookdata = $this->mongo->webhooks->find()->toArray();
         $products = $this->mongo->products->find()->toArray();
         $client = new Client();
         foreach ($webhookdata as $value) {
-            if ($value["event"] == "update") {
-                // print_r($value["event"]."<br>");
-                $client->request('POST', $value["url"], [
+            if ($value['event'] === 'update') {
+                // print_r($value['event'].'<br>');
+                $client->request('POST', $value['url'], [
                     'form_params' => [
                         'data' => json_encode($products),
                     ]
@@ -32,21 +29,19 @@ class listener extends Injectable
             }
         }
     }
-    public function productAdd(
-        Event $event,
-        loader $component
-    ) {
+    public function productAdd(): void
+    {
         $options = [
-            "limit" => 1,
-            "sort"  => ["_id" => -1]
+            'limit' => 1,
+            'sort' => ['_id' => -1]
         ];
         $product = $this->mongo->products->findOne([], $options);
         $webhookdata = $this->mongo->webhooks->find()->toArray();
         $client = new Client();
         foreach ($webhookdata as $value) {
-            // print_r($value["url"]."<br>");
-            if ($value["event"] == "add") {
-                $client->request('POST', $value["url"], [
+            // print_r($value['url'].'<br>');
+            if ($value['event'] === 'add') {
+                $client->request('POST', $value['url'], [
                     'form_params' => [
                         'data' => json_encode($product),
                     ]

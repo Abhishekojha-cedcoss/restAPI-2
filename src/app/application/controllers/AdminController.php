@@ -1,21 +1,18 @@
 <?php
 
-use Phalcon\Mvc\Controller;
-use MongoDB\BSON\ObjectID;
-use Phalcon\Events\Event;
-use Phalcon\Events\Manager as EventsManager;
 use App\Application\Components\Listener;
+use MongoDB\BSON\ObjectID;
+use Phalcon\Mvc\Controller;
+use Phalcon\Events\Manager as EventsManager;
 
-class AdminController extends Controller
+final class AdminController extends Controller
 {
     /**
      * listProductsAction function
      *
      * List the products and perform the delete and update products
-     *
-     * @return void
      */
-    public function listProductsAction()
+    public function listProductsAction(): void
     {
         $resultset = $this->mongo->products->find();
         $this->view->data = $resultset->toArray();
@@ -25,15 +22,13 @@ class AdminController extends Controller
      * listOrdersAction function
      *
      * List the Orders and perform the delete and update Orders
-     *
-     * @return void
      */
-    public function listOrdersAction()
+    public function listOrdersAction(): void
     {
-        if ($this->request->hasPost("submit")) {
-            $status = $this->request->getPost("filter");
-            $id = $this->request->getPost("id");
-            $this->mongo->orders->updateOne(["_id" => new ObjectID($id)], ['$set' => ["status" => $status]]);
+        if ($this->request->hasPost('submit')) {
+            $status = $this->request->getPost('filter');
+            $id = $this->request->getPost('id');
+            $this->mongo->orders->updateOne(['_id' => new ObjectID($id)], ['$set' => ['status' => $status]]);
         }
 
         $resultset = $this->mongo->orders->find();
@@ -44,17 +39,16 @@ class AdminController extends Controller
      * addProductAction function
      *
      * Add a new Product to the database
-     * @return void
      */
-    public function addProductAction()
+    public function addProductAction(): void
     {
-        if ($this->request->hasPost("submit")) {
+        if ($this->request->hasPost('submit')) {
             $formdata = $this->request->getPost();
             $data = [
-                "name" => $formdata["name"],
-                "category" => $formdata["category"],
-                "price" => $formdata["price"],
-                "stock" => $formdata["stock"],
+                'name' => $formdata['name'],
+                'category' => $formdata['category'],
+                'price' => $formdata['price'],
+                'stock' => $formdata['stock'],
             ];
             try {
                 $this->mongo->products->insertOne($data);
@@ -71,32 +65,36 @@ class AdminController extends Controller
                 $component->add();
                 //........................................<Event Fired>...........................................//
 
-                $this->view->message = "Products added!!";
+                $this->view->message = 'Products added!!';
                 $this->view->success = true;
-            } catch (Exception $e) {
-                die($e);
+            } catch (Exception $err) {
+                die($err);
                 $this->view->success = false;
-                $this->view->message = "There was some error!!";
+                $this->view->message = 'There was some error!!';
             }
         }
     }
-    public function updateProductAction()
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function updateProductAction(): void
     {
-        $id = $this->request->get("id");
-        if ($this->request->hasPost("submit")) {
+        $id = $this->request->get('id');
+        if ($this->request->hasPost('submit')) {
             $formdata = $this->request->getPost();
-            $data = [
-                "name" => $formdata["name"],
-                "category" => $formdata["category"],
-                "price" => $formdata["price"],
-                "stock" => $formdata["stock"],
-            ];
-            $this->mongo->products->updateOne(["_id" => new ObjectID($id)], ['$set' => $data]);
-
+            $this->mongo->products->updateOne(['_id' => new ObjectID($id)], [
+                '$set' => [
+                    'name' => $formdata['name'],
+                    'category' => $formdata['category'],
+                    'price' => $formdata['price'],
+                    'stock' => $formdata['stock'],
+                ]
+            ]);
             //........................................<Event Fired>...........................................//
             $eventsManager = new EventsManager();
-            $component   = new App\Application\Components\Loader();
-
+            $component = new App\Application\Components\Loader();
             $component->setEventsManager($eventsManager);
             $eventsManager->attach(
                 'notifications',
@@ -105,7 +103,6 @@ class AdminController extends Controller
             $component->update();
             //........................................<Event Fired>...........................................//
         }
-
-        $this->view->data = (array)$this->mongo->products->findOne(["_id" => new ObjectID($id)]);
+        $this->view->data = (array) $this->mongo->products->findOne(['_id' => new ObjectID($id)]);
     }
 }

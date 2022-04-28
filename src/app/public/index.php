@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $_SERVER["REQUEST_URI"] = str_replace("/app/", "/", $_SERVER["REQUEST_URI"]);
 
 require "./vendor/autoload.php";
@@ -9,18 +11,15 @@ use Phalcon\Loader;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
 use Phalcon\Url;
-use Phalcon\Config;
 use Phalcon\Session\Manager;
 use Phalcon\Session\Adapter\Stream;
 use Phalcon\Logger\AdapterFactory;
 use Phalcon\Logger\LoggerFactory;
 
-$config = new Config([]);
-
 // Define some absolute path constants to aid in locating resources
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/application');
-define('URLROOT', "http://".$_SERVER["HTTP_HOST"]);
+define('URLROOT', "http://" . $_SERVER["HTTP_HOST"]);
 
 // Register an autoloader
 $loader = new Loader();
@@ -69,10 +68,10 @@ $container->set(
     'logger',
     function () {
         $adapters = [
-            "main"  => new \Phalcon\Logger\Adapter\Stream(APP_PATH . "/storage/log/main.log")
+            "main" => new \Phalcon\Logger\Adapter\Stream(APP_PATH . "/storage/log/main.log")
         ];
         $adapterFactory = new AdapterFactory();
-        $loggerFactory  = new LoggerFactory($adapterFactory);
+        $loggerFactory = new LoggerFactory($adapterFactory);
 
         return $loggerFactory->newInstance('prod-logger', $adapters);
     },
