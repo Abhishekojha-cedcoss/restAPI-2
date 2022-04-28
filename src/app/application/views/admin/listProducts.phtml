@@ -18,6 +18,7 @@ include APP_PATH."/views/header.phtml";
           <th scope="col">Product Category</th>
           <th scope="col">Price</th>
           <th scope="col">Stock</th>
+          <th scope="col">Update</th>
         </tr>
       ';
             foreach ($data as $k => $v) {
@@ -26,6 +27,7 @@ include APP_PATH."/views/header.phtml";
         <td>' . $v["category"] . '</td>
         <td>' . $v["price"] . '</td>
         <td>' . $v["stock"] . '</td>
+        <td><a class="btn btn-danger" href="'.URLROOT.'/app/admin/updateProduct?id='.$v["_id"].'">Update</a></td>
         </tr>';
             }
             $html .= '</table>';
@@ -36,24 +38,6 @@ include APP_PATH."/views/header.phtml";
                 <br>
 
         </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Quick View</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h2>Product All Details:</h2>
-                        <hr />
-                        <h4 id="product-name"></h4>
-                        <h4 id="category-name"></h4>
-                        <h4 id="price"></h4>
-                        <h4 id="stock"></h4>
-                        <h4 id="variations"></h4>
-</div>
       </main>
     </div>
   </div>

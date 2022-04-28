@@ -1,0 +1,31 @@
+[{
+  "_id": {
+    "$oid": "6266578ae504bd2cdd09f923"
+  },
+  "customer name": "Abhishek Ojha",
+  "customer email": "aojha8120@gmail.com",
+  "product_id": "62664ffbfd9e70718de47b4b",
+  "quantity": "2",
+  "status": "Processing",
+  "date": "25/04/2022"
+},{
+  "_id": {
+    "$oid": "62666506af0364b76604df62"
+  },
+  "customer name": "Abhishek Ojha",
+  "customer email": "aojha8120@gmail.com",
+  "product_id": "626651a3fd9e70718de47b4d",
+  "quantity": "2",
+  "status": "Dispatched",
+  "date": "25/04/2022"
+},{
+  "_id": {
+    "$oid": "626678a4578439c9f000d832"
+  },
+  "customer name": "Abhishek Ojha",
+  "customer email": "aojha8120@gmail.com",
+  "product_id": "6266506cfd9e70718de47b4c",
+  "quantity": "1",
+  "status": "paid",
+  "date": "25/04/2022"
+}]

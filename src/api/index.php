@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 require './vendor/autoload.php';
 
 use Api\Handler\Order;
@@ -24,7 +27,7 @@ $app =  new Micro($container);
 
 $container->set(
     'mongo',
-    function () {
+    static function () {
         $mongo = new \MongoDB\Client(
             "mongodb://mongo",
             array(
@@ -49,12 +52,19 @@ $app->before(
     new Api\Components\GenerateToken()
 );
 
-
 $app->get(
     '/api/products/list',
     [
         $prod,
         'list'
+    ]
+);
+
+$app->get(
+    '/api/generatetoken',
+    [
+        $prod,
+        'generateToken'
     ]
 );
 

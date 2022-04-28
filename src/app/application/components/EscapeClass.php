@@ -13,10 +13,10 @@ class EscapeClass
     /**
      * sanitize function
      * REturn the inputs after escape Html operation
-     * @param [type] $val
-     * @return void
+     * @param [string] $val
+     * @return string
      */
-    public function sanitize($val)
+    public function sanitize(string $val)
     {
         $escaper = new Escaper();
         return $escaper->escapeHtml($val);

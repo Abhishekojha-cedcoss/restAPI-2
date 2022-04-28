@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Api\Handler;
 
 use Phalcon\Di\Injectable;
@@ -9,33 +11,39 @@ use MongoDB\BSON\ObjectID;
  * Product Handler class
  * to handle all the product requests
  */
-class Order extends Injectable
+final class Order extends Injectable
 {
     /**
      * place function
      * Place new order api
-     * @return void
      */
-    public function place()
+    public function place(): void
     {
         $getproduct = json_decode(json_encode($this->request->getJsonRawBody()), true);
-        $product_id = ($getproduct['product_id']);
-        $quantity = ($getproduct['quantity']);
+        try {
+            $this->mongo->products->findOne([
+                "_id" => new ObjectID($getproduct['product_id'])
+            ]);
+        } catch (\Exception $e) {
+            $this->response->setStatusCode(404, 'Please Enter Valid Product ID');
+            $this->response->setJsonContent("Please Enter Valid Product ID!!");
+            $this->response->send();
+            die;
+        }
         $order = [
-            "customer name" => $GLOBALS["name"],
-            "customer email" => $GLOBALS["email"],
-            "product_id" => $product_id,
-            "quantity" => $quantity,
-            "status" => "paid",
-            "date" => date("d/m/Y")
+            'customer name' => $GLOBALS['name'],
+            'customer email' => $GLOBALS['email'],
+            'product_id' => $getproduct['product_id'],
+            'quantity' => $getproduct['quantity'],
+            'status' => 'paid',
+            'date' => date('d/m/Y')
         ];
         $results = $this->mongo->orders->insertOne($order);
 
-        $res = " Order id:" . $results->getInsertedId() . "";
         $this->response->setStatusCode(200, 'Found');
         $this->response->setJsonContent([
-            "status" => "Order Placed Successfully!!",
-            "data" => $res
+            'status' => 'Order Placed Successfully!!',
+            'data' => 'Order id:' . $results->getInsertedId() . ''
         ]);
         $this->response->send();
     }
@@ -43,21 +51,22 @@ class Order extends Injectable
     /**
      * Undocumented function
      * Update the orders status
-     * @return void
      */
-    public function update()
+    public function update(): void
     {
         $getproduct = json_decode(json_encode($this->request->getJsonRawBody()), true);
-        $status = ($getproduct['status']);
-        $order_id = ($getproduct['order_id']);
         $this->mongo->orders->updateOne(
-            ["_id" => new ObjectID($order_id)],
-            ['$set' => ["status" => ($status)]]
+            ['_id' => new ObjectID($getproduct['status'])],
+            [
+                '$set' => [
+                    'status' => $getproduct['status']
+                ]
+            ]
         );
         $this->response->setStatusCode(200, 'Order Updated');
         $this->response->setJsonContent([
-            "status" => "Order Updated Successfully!!",
-            "status new value" => $status
+            'status' => 'Order Updated Successfully!!',
+            'status new value' => $getproduct['status']
         ]);
         $this->response->send();
     }
