@@ -30,19 +30,17 @@ final class IndexController extends Controller
     {
         $response_data = json_decode($this->request->getPost("data"), true);
         $this->logger->info(json_encode($response_data));
-        foreach ($response_data as $value) {
-            $this->mongo->products->updateOne(
-                ["_id" => new ObjectID($value['_id']['$oid'])],
-                [
-                    '$set' => [
-                        "name" => $value['name'],
-                        "category" => $value['category'],
-                        "price" => $value["price"],
-                        "stock" => $value['stock']
-                    ]
+        $this->mongo->products->updateOne(
+            ["_id" => new ObjectID($response_data['_id']['$oid'])],
+            [
+                '$set' => [
+                    "name" => $response_data['name'],
+                    "category" => $response_data['category'],
+                    "price" => $response_data["price"],
+                    "stock" => $response_data['stock']
                 ]
-            );
-        }
+            ]
+        );
     }
 
     /**
