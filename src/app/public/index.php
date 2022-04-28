@@ -2,32 +2,34 @@
 
 declare(strict_types=1);
 
-$_SERVER["REQUEST_URI"] = str_replace("/app/", "/", $_SERVER["REQUEST_URI"]);
+$_SERVER['REQUEST_URI'] = str_replace('/app/', '/', $_SERVER['REQUEST_URI']);
 
-require "./vendor/autoload.php";
+require './vendor/autoload.php';
 
+use App\Application\Components\Listener;
 use Phalcon\Di\FactoryDefault;
+use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Loader;
-use Phalcon\Mvc\View;
-use Phalcon\Mvc\Application;
-use Phalcon\Url;
-use Phalcon\Session\Manager;
-use Phalcon\Session\Adapter\Stream;
 use Phalcon\Logger\AdapterFactory;
 use Phalcon\Logger\LoggerFactory;
+use Phalcon\Mvc\View;
+use Phalcon\Mvc\Application;
+use Phalcon\Session\Manager;
+use Phalcon\Session\Adapter\Stream;
+use Phalcon\Url;
 
 // Define some absolute path constants to aid in locating resources
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/application');
-define('URLROOT', "http://" . $_SERVER["HTTP_HOST"]);
+define('URLROOT', 'http://' . $_SERVER['HTTP_HOST']);
 
 // Register an autoloader
 $loader = new Loader();
 
 $loader->registerDirs(
     [
-        APP_PATH . "/controllers/",
-        APP_PATH . "/models/",
+        APP_PATH . '/controllers/',
+        APP_PATH . '/models/',
     ]
 );
 
@@ -35,9 +37,10 @@ $loader->register();
 
 $loader->registerNamespaces(
     [
-        "App\Application\Components" => APP_PATH . "/components"
+        'App\Application\Components' => APP_PATH . '/components'
     ]
 );
+
 
 $container = new FactoryDefault();
 
@@ -49,6 +52,22 @@ $container->set(
         return $view;
     }
 );
+//........................................<Event Fired>...........................................//
+$container->set(
+    'event',
+    function () {
+        $eventsManager = new EventsManager();
+        $component   = new App\Application\Components\Loader();
+
+        $component->setEventsManager($eventsManager);
+        $eventsManager->attach(
+            'notifications',
+            new Listener()
+        );
+        return $component;
+    }
+);
+//........................................<Event Fired>...........................................//
 
 $container->set(
     'url',
@@ -68,7 +87,7 @@ $container->set(
     'logger',
     function () {
         $adapters = [
-            "main" => new \Phalcon\Logger\Adapter\Stream(APP_PATH . "/storage/log/main.log")
+            'main' => new \Phalcon\Logger\Adapter\Stream(APP_PATH . '/storage/log/main.log')
         ];
         $adapterFactory = new AdapterFactory();
         $loggerFactory = new LoggerFactory($adapterFactory);
@@ -103,10 +122,10 @@ $container->set(
     'mongo',
     function () {
         $mongo = new \MongoDB\Client(
-            "mongodb://mongo",
+            'mongodb://mongo',
             array(
-                "username" => 'root',
-                "password" => "password123"
+                'username' => 'root',
+                'password' => 'password123'
             )
         );
         return $mongo->store;
@@ -117,10 +136,10 @@ $container->set(
 try {
     // Handle the request
     $response = $application->handle(
-        $_SERVER["REQUEST_URI"]
+        $_SERVER['REQUEST_URI']
     );
 
     $response->send();
-} catch (\Exception $e) {
-    echo 'Exception: ', $e->getMessage();
+} catch (\Exception $err) {
+    echo 'Exception: ', $err->getMessage();
 }

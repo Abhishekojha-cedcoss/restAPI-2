@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Components;
 
 use DateTimeImmutable;
@@ -10,19 +12,19 @@ use Phalcon\Di\Injectable;
  * Helper class
  * Performs the additional Functionalties
  */
-class Helper extends Injectable
+final class Helper extends Injectable
 {
     /**
      * generateToken function
      *
      * Generates new token for the user who signups for the application
-     * @param [string] $name
-     * @param [string] $email
+     * @param string $name
+     * @param string $email
      * @return string
      */
-    public function generateToken($name, $email)
+    public function generateToken(string $name, string $email): string
     {
-        $now        = new DateTimeImmutable();
+        $now = new DateTimeImmutable();
         $key = 'example_key';
 
         $payload = [

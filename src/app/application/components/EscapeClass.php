@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Components;
 
 use Phalcon\Escaper;
@@ -8,7 +10,7 @@ use Phalcon\Escaper;
  * EscapeClass class
  * Sanitizes the inputs.
  */
-class EscapeClass
+final class EscapeClass
 {
     /**
      * sanitize function

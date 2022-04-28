@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Components;
 
 use Phalcon\Di\Injectable;
 use Phalcon\Events\ManagerInterface;
 
-class Loader extends Injectable
+final class Loader extends Injectable
 {
     protected $eventsManager;
 

@@ -11,8 +11,6 @@ final class UserController extends Controller
     /**
      * Signup Function
      * Registers new user with the email and password in the database
-     *
-     * @return void
      */
     public function signupAction(): void
     {
@@ -41,10 +39,8 @@ final class UserController extends Controller
      * loginAction function
      *
      * Makes a user login if the details provided by him are correct.
-     *
-     * @return void
      */
-    public function loginAction()
+    public function loginAction(): void
     {
         $escaper = new EscapeClass();
         if ($this->request->hasPost('submit')) {
@@ -67,10 +63,9 @@ final class UserController extends Controller
 
     /**
      * Signout function
-     *
-     * @return void
+     * Re-directs to the login page
      */
-    public function signoutAction()
+    public function signoutAction(): void
     {
         $this->response->redirect(URLROOT . '/app/user/login');
     }
@@ -79,10 +74,8 @@ final class UserController extends Controller
      * createWebHookAction function
      *
      * Form to create webHook for user
-     *
-     * @return void
      */
-    public function createWebHookAction()
+    public function createWebHookAction(): void
     {
         if ($this->request->hasPost('submit')) {
             $data = $this->request->getPost();

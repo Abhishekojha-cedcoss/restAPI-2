@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Components;
 
-use Phalcon\Di\Injectable;
 use GuzzleHttp\Client;
+use Phalcon\Di\Injectable;
 
 /**
  * listener class
  *
  * Handle the update events and returns the response to the given url
  */
-class Listener extends Injectable
+final class Listener extends Injectable
 {
     public function productUpdate(): void
     {
@@ -20,7 +22,6 @@ class Listener extends Injectable
         $client = new Client();
         foreach ($webhookdata as $value) {
             if ($value['event'] === 'update') {
-                // print_r($value['event'].'<br>');
                 $client->request('POST', $value['url'], [
                     'form_params' => [
                         'data' => json_encode($products),
@@ -39,7 +40,6 @@ class Listener extends Injectable
         $webhookdata = $this->mongo->webhooks->find()->toArray();
         $client = new Client();
         foreach ($webhookdata as $value) {
-            // print_r($value['url'].'<br>');
             if ($value['event'] === 'add') {
                 $client->request('POST', $value['url'], [
                     'form_params' => [
