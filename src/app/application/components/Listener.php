@@ -15,12 +15,17 @@ use Phalcon\Di\Injectable;
  */
 final class Listener extends Injectable
 {
+    /**
+     * productUpdate function
+     *
+     * @param object $data
+     */
     public function productUpdate($data): void
     {
         print_r($data->getData());
         $this->logger->info('Event was fired!!');
         $webhookdata = $this->mongo->webhooks->find()->toArray();
-        $products = $this->mongo->products->findOne(['_id' => new objectID($data->getData())]);
+        $products = $this->mongo->products->findOne(['_id' => new ObjectID($data->getData())]);
         $client = new Client();
         foreach ($webhookdata as $value) {
             if ($value['event'] === 'update') {

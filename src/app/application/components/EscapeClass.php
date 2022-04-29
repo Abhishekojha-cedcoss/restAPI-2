@@ -15,8 +15,6 @@ final class EscapeClass
     /**
      * sanitize function
      * REturn the inputs after escape Html operation
-     * @param [string] $val
-     * @return string
      */
     public function sanitize(string $val): string
     {

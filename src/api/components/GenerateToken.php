@@ -9,9 +9,6 @@ use Phalcon\Mvc\Micro;
 use DateTimeImmutable;
 use Firebase\JWT\Key;
 use Firebase\JWT\JWT;
-use Phalcon\Http\Response;
-use Phalcon\Http\Request;
-use MongoDB\BSON\ObjectID;
 
 /**
  * GenerateToken class

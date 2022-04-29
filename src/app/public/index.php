@@ -41,7 +41,6 @@ $loader->registerNamespaces(
     ]
 );
 
-
 $container = new FactoryDefault();
 
 $container->set(
@@ -77,8 +76,6 @@ $container->set(
 );
 $application = new Application($container);
 
-
-
 //.......................................<Logger>........................................//
 $container->set(
     'logger',
@@ -94,7 +91,6 @@ $container->set(
     true
 );
 //.......................................<Logger>........................................//
-
 
 $container->set(
     'session',
@@ -120,10 +116,10 @@ $container->set(
     function () {
         $mongo = new \MongoDB\Client(
             'mongodb://mongo',
-            array(
+            [
                 'username' => 'root',
                 'password' => 'password123'
-            )
+            ]
         );
         return $mongo->store;
     },
