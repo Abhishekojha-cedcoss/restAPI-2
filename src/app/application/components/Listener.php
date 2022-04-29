@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Components;
 
 use GuzzleHttp\Client;
+use MongoDB\BSON\ObjectID;
 use Phalcon\Di\Injectable;
 
 /**
@@ -14,11 +15,17 @@ use Phalcon\Di\Injectable;
  */
 final class Listener extends Injectable
 {
-    public function productUpdate(): void
+    /**
+     * productUpdate function
+     *
+     * @param object $data
+     */
+    public function productUpdate($data): void
     {
+        print_r($data->getData());
         $this->logger->info('Event was fired!!');
         $webhookdata = $this->mongo->webhooks->find()->toArray();
-        $products = $this->mongo->products->find()->toArray();
+        $products = $this->mongo->products->findOne(['_id' => new ObjectID($data->getData())]);
         $client = new Client();
         foreach ($webhookdata as $value) {
             if ($value['event'] === 'update') {

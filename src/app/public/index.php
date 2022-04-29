@@ -12,8 +12,8 @@ use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Loader;
 use Phalcon\Logger\AdapterFactory;
 use Phalcon\Logger\LoggerFactory;
-use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
+use Phalcon\Mvc\View;
 use Phalcon\Session\Manager;
 use Phalcon\Session\Adapter\Stream;
 use Phalcon\Url;
@@ -41,7 +41,6 @@ $loader->registerNamespaces(
     ]
 );
 
-
 $container = new FactoryDefault();
 
 $container->set(
@@ -57,15 +56,12 @@ $container->set(
     'event',
     function () {
         $eventsManager = new EventsManager();
-        $component   = new App\Application\Components\Loader();
 
-        $component->setEventsManager($eventsManager);
         $eventsManager->attach(
             'notifications',
             new Listener()
         );
-        
-        return $component;
+        return $eventsManager;
     }
 );
 //........................................<Event Fired>...........................................//
@@ -79,9 +75,6 @@ $container->set(
     }
 );
 $application = new Application($container);
-
-
-
 
 //.......................................<Logger>........................................//
 $container->set(
@@ -98,7 +91,6 @@ $container->set(
     true
 );
 //.......................................<Logger>........................................//
-
 
 $container->set(
     'session',
@@ -124,10 +116,10 @@ $container->set(
     function () {
         $mongo = new \MongoDB\Client(
             'mongodb://mongo',
-            array(
+            [
                 'username' => 'root',
                 'password' => 'password123'
-            )
+            ]
         );
         return $mongo->store;
     },

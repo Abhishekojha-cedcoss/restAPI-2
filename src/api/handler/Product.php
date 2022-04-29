@@ -34,13 +34,13 @@ final class Product extends Injectable
     {
         $options = [
             "limit" => (int) $per_page,
-            "skip"  => (int) (($page - 1) * $per_page)
+            "skip" => (int) (($page - 1) * $per_page)
         ];
         $array = [];
-        $products =  $this->mongo->products->find([], $options);
+        $products = $this->mongo->products->find([], $options);
         $products = $products->toArray();
         foreach ($products as $key => $value) {
-            $id = (array)$value["_id"];
+            $id = (array) $value["_id"];
             $res = [
                 "id" => $id["oid"],
                 "name" => $value['name'],

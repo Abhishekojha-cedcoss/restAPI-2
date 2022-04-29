@@ -24,7 +24,7 @@ final class Order extends Injectable
             $this->mongo->products->findOne([
                 "_id" => new ObjectID($getproduct['product_id'])
             ]);
-        } catch (\Exception $e) {
+        } catch (\Exception $err) {
             $this->response->setStatusCode(404, 'Please Enter Valid Product ID');
             $this->response->setJsonContent("Please Enter Valid Product ID!!");
             $this->response->send();
@@ -69,7 +69,7 @@ final class Order extends Injectable
      */
     public function createOrderArray($data): array
     {
-        $order = [
+        return [
             'customer name' => $GLOBALS['name'],
             'customer email' => $GLOBALS['email'],
             'product_id' => $data['product_id'],
@@ -77,6 +77,5 @@ final class Order extends Injectable
             'status' => 'paid',
             'date' => date('d/m/Y')
         ];
-        return $order;
     }
 }

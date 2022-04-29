@@ -52,7 +52,7 @@ final class AdminController extends Controller
             ];
             try {
                 $this->mongo->products->insertOne($data);
-                $this->event->add();//Fire an event
+                $this->event->fire('notifications:productAdd', $this);//Fire an event
                 $this->view->message = 'Products added!!';
                 $this->view->success = true;
             } catch (Exception $err) {
@@ -80,7 +80,7 @@ final class AdminController extends Controller
                     'stock' => $formdata['stock'],
                 ]
             ]);
-            $this->event->update();//Fire an event
+            $this->event->fire('notifications:productUpdate', $this, $id);//Fire an event
         }
         $this->view->data = (array) $this->mongo->products->findOne(['_id' => new ObjectID($id)]);
     }
